@@ -1,0 +1,262 @@
+FSP Configuration
+  Board "Custom User Board (Any Device)"
+  R7FA0E1073CFJ
+    part_number: R7FA0E1073CFJ
+    rom_size_bytes: 65536
+    ram_size_bytes: 12288
+    data_flash_size_bytes: 1024
+    package_style: LQFP
+    package_pins: 32
+    number of cores: 1
+    
+  R7FA0E1073CFJ
+  RA0E1
+    series: 0
+    
+  RA0E1 Family
+    Enable inline BSP IRQ functions: Disabled
+    Main Oscillation Stabilization Time: 2^18/MOSC
+    Use Low Voltage Mode: Not Supported
+    
+  RA0E1 Device Options
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Enabled
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Start Mode: IWDT is stopped after a reset
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Timeout Period: 2048 cycles
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Dedicated Clock Frequency Divisor: 128
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Window End Position:  0% (no window end position)
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Window Start Position: 100% (no window start position)
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Reset Interrupt Request Select: Reset is enabled
+    OFS Registers: OFS0 (Option Function Select Register 0) Settings: Independent WDT: Stop Control: Stop counting when in Sleep,Snooze modec, or Software Standby
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Enabled
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Voltage Detection 0 Circuit Start: Voltage monitor 0 reset is disabled after reset
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Voltage Detection 0 Level: 1.86 V
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Enable or disable Flash Read Protection: Disabled
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Flash Read Protection Start: 0x01
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: Flash Read Protection End: 0x3F
+    OFS Registers: OFS1 (Option Function Select Register 1) Settings: P206/RES pin selection: RES input
+    OFS Registers: OSIS (OCD/Serial Programmer ID setting register) Settings: Disabled
+    OFS Registers: OSIS (OCD/Serial Programmer ID setting register) Settings: ID Code Mode: Unlocked (Ignore ID)
+    OFS Registers: OSIS (OCD/Serial Programmer ID setting register) Settings: ID Code (32 Hex Characters): FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    
+  RA0E1 event data
+  RA Common
+    Main stack size (bytes): 0x400
+    Heap size (bytes): 0
+    Bootloader Secondary XIP: Disabled
+    MCU Vcc (mV): 3300
+    Parameter checking: Disabled
+    Assert Failures: Return FSP_ERR_ASSERTION
+    Clock Registers not Reset Values during Startup: Disabled
+    Main Oscillator Populated: Populated
+    PFS Protect: Enabled
+    C Runtime Initialization : Enabled
+    Early BSP Initialization : Disabled
+    Main Oscillator Clock Source: Crystal or Resonator
+    Subclock Populated: Populated
+    Subclock Drive (Drive capacitance availability varies by MCU): Standard/Normal mode
+    Subclock Stabilization Time (ms): 1000
+    
+  Clocks
+    XTAL 20000000Hz
+    XTAL Div /1
+    HOCO 32MHz
+    HOCO Div /1
+    MOCO Div /1
+    ICLK Src: HOCO
+    TAU CK00 Div /1
+    TAU CK01 Div /1
+    TAU CK02 Div /2
+    TAU CK03 Div /256
+    SAU CK00 Div /2
+    SAU CK01 Div /1
+    SAU CK10 Div /2
+    SAU CK11 Div /1
+    CLKOUT Disabled
+    CLKOUT Div /1
+    UARTA0 Src: Disabled
+    FSXP Src: SUBCLK
+    TML FITL0 Src: ELC event/No BSP Source Clock
+    TML FITL1 Src: ELC event/No BSP Source Clock
+    TML FITL2 Disabled/No BSP Source Clock
+    
+  Pin Configurations
+    R7FA0E1073CFJ.pincfg -> g_bsp_pin_cfg
+      P008 30 GPIO OUT1 - - "Output mode (Initial High)" - - "ADC0: AN002" - IO - - 
+      P009 29 GPIO BRAKE2 - - "Output mode (Initial High)" - - "ADC0: AN003" - IO - - 
+      P010 32 GPIO SS_DIR1 - - "Output mode (Initial High)" - - "ADC0: AN000; SYSTEM: VREFH0" - IO - - 
+      P011 31 GPIO OUT2 - - "Output mode (Initial High)" - - "ADC0: AN001; SYSTEM: VREFL0" - IO - - 
+      P012 28 ADC0_AN004 AIN1 - - "Analog mode" - - "ADC0: AN004" - I - - 
+      P013 27 ADC0_AN005 AIN2 - - "Analog mode" - - "ADC0: AN005" - I - - 
+      P014 26 ADC0_AN006 AIN3 - - "Analog mode" - - "ADC0: AN006" - I - - 
+      P015 25 - IRQ - - Disabled - - "ADC0: AN007; IRQ: IRQ1" - None - - 
+      P100 24 GPIO - - None "Input mode" - - "ADC0: AN022; IICA0: SCLA0; IRQ: IRQ2; SAU_I2C00: SDA00; SAU_SPI00: SI00; SAU_UART0: RXD0; TAU01: TI01; TAU01: TO01; TAU04: TI04; TAU04: TO04; UARTA: RXDA" - IO - - 
+      P101 23 GPIO DRVOFF1 - - "Output mode (Initial Low)" - - "ADC0: AN021; IICA0: SDAA0; IRQ: IRQ3; SAU_SPI00: SO00; SAU_UART0: TXD0; TAU00: TI00; TAU07: TI07; TAU07: TO07; UARTA: TXDA" - IO - - 
+      P102 22 GPIO NSLEEP - - "Output mode (Initial High)" - - "CGC: PCLBUZ0; IRQ: IRQ4; RTC: RTCOUT; SAU_I2C00: SCL00; SAU_SPI00: SCK00; TAU00: TO00; TAU06: TI06; TAU06: TO06" - IO - - 
+      P103 21 GPIO DRVOFF2 - - "Output mode (Initial Low)" - - "IRQ: IRQ5; SAU_SPI00: SSI00; TAU05: TI05; TAU05: TO05" - IO - - 
+      P108 17 JTAG/SWD_SWDIO - - - "Peripheral mode" - - "JTAG/SWD: SWDIO; TAU03: TI03; TAU03: TO03" - IO - - 
+      P109 18 TAU02_TO02 PWM2 - None "Peripheral mode" - - "IICA0: SDAA0; IRQ: IRQ4; SAU_SPI20: SO20; SAU_UART2: TXD2; TAU02: TI02; TAU02: TO02; UARTA: TXDA" - O - - 
+      P110 19 TAU01_TO01 PWM1 - None "Peripheral mode" - - "IICA0: SCLA0; IRQ: IRQ3; SAU_I2C20: SDA20; SAU_SPI20: SI20; SAU_UART2: RXD2; TAU01: TI01; TAU01: TO01; UARTA: RXDA" - O - - 
+      P112 20 GPIO SS_DIR2 - - "Output mode (Initial High)" - - "IRQ: IRQ2; SAU_I2C20: SCL20; SAU_SPI00: SSI00; SAU_SPI20: SCK20; TAU03: TI03; TAU03: TO03" - IO - - 
+      P200 15 - NFAULT - - Disabled - - "IRQ: IRQ0" - None - - 
+      P201 14 - FGOUT2 - - Disabled - - "CGC: PCLBUZ0; IRQ: IRQ5; RTC: RTCOUT; SAU_I2C11: SCL11; SAU_SPI00: SSI00; SAU_SPI11: SCK11; TAU05: TI05; TAU05: TO05" - None - - 
+      P206 13 SYSTEM_RES - - - "Peripheral mode" - - "SYSTEM: RES" - IO - - 
+      P207 12 UARTA_RXDA - - None "Peripheral mode" - - "IRQ: IRQ2; TAU00: TO00; UARTA: RXDA" - I - - 
+      P208 11 UARTA_TXDA - - None "Peripheral mode" - - "IRQ: IRQ3; TAU00: TI00; UARTA: TXDA" - O - - 
+      P212 6 IRQ_IRQ1 FGOUT1 - IRQ1 "IRQ mode" - - "CGC: X1; IICA0: SCLA0; IRQ: IRQ1; SAU_I2C11: SDA11; SAU_SPI11: SI11; SAU_UART1: RXD1; TAU00: TO00; TAU03: TI03; TAU03: TO03; UARTA: RXDA" - I - - 
+      P213 5 GPIO BRAKE1 - - "Output mode (Initial High)" - - "CGC: EXCLK; CGC: X2; IICA0: SDAA0; IRQ: IRQ0; SAU_SPI11: SO11; SAU_UART1: TXD1; TAU00: TI00; TAU02: TI02; TAU02: TO02; UARTA: TXDA" - IO - - 
+      P214 3 GPIO RES_IN2 - - "Input mode" - - "CGC: XCOUT" - I - - 
+      P215 2 GPIO RES_IN1 - - "Input mode" - - "CGC: XCIN" - I - - 
+      P300 16 JTAG/SWD_SWCLK - - - "Peripheral mode" - - "JTAG/SWD: SWCLK; TAU04: TI04; TAU04: TO04" - IO - - 
+      P407 8 GPIO MODBUS_DIR - IRQ4 "Input mode" - - "CGC: PCLBUZ0; IRQ: IRQ4; RTC: RTCOUT; SAU_I2C11: SCL11; SAU_SPI11: SCK11" - IO - - 
+      P913 10 IICA0_SDAA0 - - - "Peripheral mode" - - "IICA0: SDAA0" - IO - - 
+      P914 9 IICA0_SCLA0 - - - "Peripheral mode" - - "IICA0: SCLA0" - IO - - 
+      VCC 7 SYSTEM_VCC - - - - - - - - IO "Read only" - 
+      VCL 1 SYSTEM_VCL - - - - - - - - IO "Read only" - 
+      VSS 4 SYSTEM_VSS - - - - - - - - IO "Read only" - 
+    
+  User Events
+    
+  User Event Links
+    
+  Linker Section Mappings
+    
+  Module "I/O Port (r_ioport)"
+    Parameter Checking: Default (BSP)
+    
+  Module "Azure RTOS ThreadX Port (rm_threadx_port)"
+  Module "IICA Slave (r_iica_slave)"
+    Parameter Checking: Default (BSP)
+    10-bit slave addressing: Disabled
+    General call addressing: Disabled
+    Enable Single Channel: Enabled
+    
+  Module "Timer, Simultaneous Channel Operation (r_tau_pwm)"
+    Parameter Checking: Default (BSP)
+    One-shot Pulse Output Mode Support: Disabled
+    PWM Output Mode Support: Enabled
+    Multi-Slave: Enabled
+    
+  Module "TAU PWM Channel  Configuration (r_tau_pwm)"
+  Module "External IRQ (r_icu)"
+    Parameter Checking: Default (BSP)
+    
+  Azure RTOS ThreadX
+    General: Custom tx_user.h: 
+    General: Error Checking: Enabled
+    Timer: Timer Ticks Per Second: 1000
+    General: Max Priorities: 32
+    General: Minimum Stack: 200
+    Timer: Timer Thread Stack Size: 1024
+    Timer: Timer Thread Priority: 0
+    Timer: Timer Process In ISR: Enabled
+    Timer: Reactivate Inline: Disabled
+    General: Stack Filling: Enabled
+    General: Preemption Threshold: Disabled
+    Timer: Timer: Enabled
+    General: Notify Callbacks: Disabled
+    General: Inline Thread Resume Suspend: Disabled
+    General: Not Interruptable: Disabled
+    Trace: Event Trace: Disabled
+    Trace: Trace Buffer Name: g_tx_trace_buffer
+    Trace: Memory section for Trace Buffer: .bss
+    Trace: Trace Buffer Size: 65536
+    Trace: Trace Buffer Number of Registries: 30
+    Performance: Block Pool Performance Info: Disabled
+    Performance: Byte Pool Performance Info: Disabled
+    Performance: Event Flags Performance Info: Disabled
+    Performance: Mutex Performance Info: Disabled
+    Performance: Queue Performance Info: Disabled
+    Performance: Semaphore Performance Info: Disabled
+    Performance: Thread Performance Info: Disabled
+    Performance: Timer Performance Info: Disabled
+    RA: Hardware Thread Stack Monitoring: 
+    Interrupts: SysTick Interrupt Priority: Priority 0 (highest)
+    Interrupts: Maximum Interrupt Priority: Priority 0 (highest)
+    General: IAR Library Support: Disabled
+    General: BSD Support: Disabled
+    General: FileX Pointer: Enabled
+    
+  HAL
+    Instance "g_ioport I/O Port (r_ioport)"
+      Name: g_ioport
+      1st Port ELC Trigger Source: Disabled
+      2nd Port ELC Trigger Source: Disabled
+      3rd Port ELC Trigger Source: Disabled
+      4th Port ELC Trigger Source: Disabled
+      Pin Configuration Name: g_bsp_pin_cfg
+      
+    Instance "Azure RTOS ThreadX Port (rm_threadx_port)"
+  Thread "System Thread"
+    Symbol: sys_thread
+    Name: System Thread
+    Stack size (bytes): 1024
+    Priority: 1
+    Auto start: Enabled
+    Time slicing interval (ticks): 1
+    
+    Instance "g_timer0 Timer, Simultaneous Channel Operation (r_tau_pwm)"
+      General: Name: g_timer0
+      General: Operation Clock: CK00
+      General: Mode: PWM output
+      General: Master Channel: 0
+      General: Period: 100
+      General: Period Unit: Microseconds
+      Input (One-shot pulse): Trigger Source: TI0n pin
+      Input (One-shot pulse): Detect Edge: Falling Edge
+      Interrupts: Callback: TestInt
+      Interrupts: Interrupt Priority: Priority 2
+      
+      Instance "TAU PWM Channel 1 Configuration (r_tau_pwm)"
+        General: Channel: 1
+        Output: Output Level: Start Level Low
+        Output: Output Polarity: Active-high
+        Output: One-Shot Pulse Width: 0xffff
+        Output: One-Shot Pulse Width Unit: Raw Counts
+        Output: PWM Duty Cycle Percent: 30
+        Interrupts: Interrupt Priority: Disabled
+        
+      Instance "TAU PWM Channel 2 Configuration (r_tau_pwm)"
+        General: Channel: 2
+        Output: Output Level: Start Level Low
+        Output: Output Polarity: Active-high
+        Output: One-Shot Pulse Width: 0xffff
+        Output: One-Shot Pulse Width Unit: Raw Counts
+        Output: PWM Duty Cycle Percent: 50
+        Interrupts: Interrupt Priority: Disabled
+        
+    Instance "g_irq_FGOUT1 External IRQ (r_icu)"
+      Name: g_irq_FGOUT1
+      Channel: 1
+      Trigger: Both Edges
+      Digital Filtering: Not Supported
+      Filter Source: Not Supported
+      Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): Not Supported
+      Callback: cb_FGOUT1
+      Pin Interrupt Priority: Priority 2
+      
+  Thread "I2C Slave Thread"
+    Symbol: i2c_slave_thread
+    Name: I2C Slave Thread
+    Stack size (bytes): 1024
+    Priority: 1
+    Auto start: Enabled
+    Time slicing interval (ticks): 1
+    
+    Instance "i2c_slave IICA Slave (r_iica_slave)"
+      Name: i2c_slave
+      Channel: 0
+      Rate: Standard
+      Internal Reference Clock: PCLKB / 1
+      Signal Rising Time (us): 0
+      Signal Falling Time (us): 0
+      Duty Cycle (%): 53
+      Digital Filter: Disabled
+      Address Mode: 7-Bit
+      Slave Address: 0x20
+      Callback: i2c_slave_callback
+      Interrupt Priority Level: Priority 2
+      
+  Object "g_new_event_flags0 Event Flags"
+    Name: New Event Flags
+    Symbol: g_new_event_flags0
+    
