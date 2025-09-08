@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<raConfiguration version="11">
+<raConfiguration version="12">
   <generalSettings>
     <option key="#Board#" value="board.custom"/>
     <option key="CPU" value="RA0E1"/>
@@ -76,12 +76,12 @@
       <property id="config.bsp.common.checking" value="config.bsp.common.checking.disabled"/>
       <property id="config.bsp.common.assert" value="config.bsp.common.assert.none"/>
       <property id="config.bsp.common.soft_reset" value="config.bsp.common.soft_reset.disabled"/>
-      <property id="config.bsp.common.main_osc_populated" value="config.bsp.common.main_osc_populated.enabled"/>
+      <property id="config.bsp.common.main_osc_populated" value="config.bsp.common.main_osc_populated.disabled"/>
       <property id="config.bsp.common.pfs_protect" value="config.bsp.common.pfs_protect.enabled"/>
       <property id="config.bsp.common.c_runtime_init" value="config.bsp.common.c_runtime_init.enabled"/>
       <property id="config.bsp.common.early_init" value="config.bsp.common.early_init.disabled"/>
       <property id="config.bsp.common.main_osc_clock_source" value="config.bsp.common.main_osc_clock_source.crystal"/>
-      <property id="config.bsp.common.subclock_populated" value="config.bsp.common.subclock_populated.enabled"/>
+      <property id="config.bsp.common.subclock_populated" value="config.bsp.common.subclock_populated.disabled"/>
       <property id="config.bsp.common.subclock_drive" value="config.bsp.common.subclock_drive.standard"/>
       <property id="config.bsp.common.subclock_stabilization_ms" value="1000"/>
     </config>
@@ -116,9 +116,9 @@
     <node id="board.clock.clkout.source" option="board.clock.clkout.source.disabled"/>
     <node id="board.clock.clkout.div" option="board.clock.clkout.div.1"/>
     <node id="board.clock.clkout.display" option="board.clock.clkout.display.value"/>
-    <node id="board.clock.uarta.source" option="board.clock.uarta.source.disabled"/>
+    <node id="board.clock.uarta.source" option="board.clock.uarta.source.moco"/>
     <node id="board.clock.uarta.source.display" option="board.clock.uarta.display.value"/>
-    <node id="board.clock.fsxp.source" option="board.clock.fsxp.source.subclk"/>
+    <node id="board.clock.fsxp.source" option="board.clock.fsxp.source.loco"/>
     <node id="board.clock.tml.fitl0.source" option="board.clock.tml.fitl0.source.disabled"/>
     <node id="board.clock.tml.fitl0.display" option="board.clock.tml.fitl0.display.value"/>
     <node id="board.clock.tml.fitl1.source" option="board.clock.tml.fitl1.source.disabled"/>
@@ -182,6 +182,14 @@
     </component>
     <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_tau_pwm" variant="" vendor="Renesas" version="6.0.0">
       <description>Timer Array Unit (Simultaneous Channel Operation)</description>
+      <originalPack>Renesas.RA.6.0.0.pack</originalPack>
+    </component>
+    <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_adc_d" variant="" vendor="Renesas" version="6.0.0">
+      <description>A/D Converter</description>
+      <originalPack>Renesas.RA.6.0.0.pack</originalPack>
+    </component>
+    <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_uarta" variant="" vendor="Renesas" version="6.0.0">
+      <description>UARTA</description>
       <originalPack>Renesas.RA.6.0.0.pack</originalPack>
     </component>
   </raComponentSelection>
@@ -252,6 +260,49 @@
       <property id="module.driver.external_irq.p_callback" value="cb_FGOUT1"/>
       <property id="module.driver.external_irq.ipl" value="board.icu.common.irq.priority2"/>
     </module>
+    <module id="module.driver.adc_on_adc_d.1231383527">
+      <property id="module.driver.adc.name" value="g_adc0"/>
+      <property id="module.driver.adc.resolution" value="module.driver.adc.resolution.resolution_12_bit"/>
+      <property id="module.driver.adc.conversion_operation" value="module.driver.adc.conversion_operation.one_shot"/>
+      <property id="module.driver.adc.operation_trigger" value="module.driver.adc.operation_trigger.nowait"/>
+      <property id="module.driver.adc.operation_voltage" value="module.driver.adc.operation_voltage.normal1"/>
+      <property id="module.driver.adc.conversion_clock" value="module.driver.adc.conversion_clock.div1"/>
+      <property id="module.driver.adc.channel_mode" value="module.driver.adc.channel_mode.select"/>
+      <property id="module.driver.adc.input_channel" value="module.driver.adc.input_channel.channel_4"/>
+      <property id="module.driver.adc.negative_vref" value="module.driver.adc.negative_vref.vss"/>
+      <property id="module.driver.adc.positive_vref" value="module.driver.adc.positive_vref.vcc"/>
+      <property id="module.driver.adc.p_callback" value="cb_adc0"/>
+      <property id="module.driver.adc.scan_end_ipl" value="board.icu.common.irq.priority2"/>
+      <property id="module.driver.adc.trigger" value="module.driver.adc.trigger_interrupt.software"/>
+      <property id="module.driver.adc.ulbaudsetting.condition" value="module.driver.adc.ulbaudsetting.condition.inrange"/>
+      <property id="module.driver.adc.ulbaudsetting.adul" value="255"/>
+      <property id="module.driver.adc.ulbaudsetting.adll" value="0"/>
+    </module>
+    <module id="module.driver.external_irq_on_icu.201703058">
+      <property id="module.driver.external_irq.name" value="g_irq_FGOUT2"/>
+      <property id="module.driver.external_irq.channel" value="5"/>
+      <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_both_edge"/>
+      <property id="module.driver.external_irq.filter_enable" value="module.driver.external_irq.filter_enable.false"/>
+      <property id="module.driver.external_irq.filter_source" value="module.driver.external_irq.filter_source.pclk"/>
+      <property id="module.driver.external_irq.clock_source_div" value="module.driver.external_irq.clock_source_div.clock_source_div_by_1"/>
+      <property id="module.driver.external_irq.p_callback" value="cb_FGOUT2"/>
+      <property id="module.driver.external_irq.ipl" value="board.icu.common.irq.priority2"/>
+    </module>
+    <module id="module.driver.uart_on_uarta.47088231">
+      <property id="module.driver.uart.name" value="g_uart0"/>
+      <property id="module.driver.uarta.channel" value="0"/>
+      <property id="module.driver.uarta.data_bits" value="module.driver.uarta.data_bits.data_bits_8"/>
+      <property id="module.driver.uarta.parity" value="module.driver.uarta.parity.parity_off"/>
+      <property id="module.driver.uarta.stop_bits" value="module.driver.uarta.stop_bits.stop_bits_1"/>
+      <property id="module.driver.uarta.baud" value="115200"/>
+      <property id="module.driver.uarta.order" value="module.driver.uarta.order.lsb"/>
+      <property id="module.driver.uarta.transfer_level" value="module.driver.uarta.transfer_level.positive"/>
+      <property id="module.driver.uarta.clk_out" value="module.driver.uarta.clk_out.disabled"/>
+      <property id="module.driver.uart.callback" value="NULL"/>
+      <property id="module.driver.uarta.rxi_ipl" value="board.icu.common.irq.priority2"/>
+      <property id="module.driver.uarta.txi_ipl" value="board.icu.common.irq.priority2"/>
+      <property id="module.driver.uarta.eri_ipl" value="_disabled"/>
+    </module>
     <object id="rtos.threadx.object.flags.122615821">
       <property id="rtos.threadx.object.flags.name" value="New Event Flags"/>
       <property id="rtos.threadx.object.flags.symbol" value="g_new_event_flags0"/>
@@ -259,6 +310,7 @@
     <context id="_hal.0">
       <stack module="module.driver.ioport_on_ioport.0"/>
       <stack module="module.middleware.rm_threadx_port.0"/>
+      <stack module="module.driver.uart_on_uarta.47088231"/>
     </context>
     <context id="rtos.threadx.thread.135934454">
       <property id="_symbol" value="sys_thread"/>
@@ -272,6 +324,7 @@
         <stack module="module.driver.timer_channel.2109166864" requires="module.driver.timer.requires.slave2"/>
       </stack>
       <stack module="module.driver.external_irq_on_icu.1052883702"/>
+      <stack module="module.driver.external_irq_on_icu.201703058"/>
     </context>
     <context id="rtos.threadx.thread.877349641">
       <property id="_symbol" value="i2c_slave_thread"/>
@@ -282,11 +335,25 @@
       <property id="rtos.threadx.thread.timeslice" value="1"/>
       <stack module="module.driver.iica_on_iica_slave.1066058012"/>
     </context>
+    <context id="rtos.threadx.thread.369925229">
+      <property id="_symbol" value="adc_thread"/>
+      <property id="rtos.threadx.thread.name" value="ADC Thread"/>
+      <property id="rtos.threadx.thread.stack" value="1024"/>
+      <property id="rtos.threadx.thread.priority" value="1"/>
+      <property id="rtos.threadx.thread.autostart" value="rtos.threadx.thread.autostart.enabled"/>
+      <property id="rtos.threadx.thread.timeslice" value="1"/>
+      <stack module="module.driver.adc_on_adc_d.1231383527"/>
+    </context>
     <config id="config.driver.tau_pwm">
       <property id="config.driver.tau_pwm.param_checking_enable" value="config.driver.tau_pwm.param_checking_enable.bsp"/>
       <property id="config.driver.tau_pwm.one_shot_support" value="config.driver.tau_pwm.one_shot_support.disabled"/>
       <property id="config.driver.tau_pwm.pwm_support" value="config.driver.tau_pwm.pwm_support.enabled"/>
       <property id="config.driver.tau_pwm.multi_slave" value="config.driver.tau_pwm.multi_slave.enabled"/>
+    </config>
+    <config id="config.driver.uarta">
+      <property id="config.driver.uarta.param_checking_enable" value="config.driver.uarta.param_checking_enable.bsp"/>
+      <property id="config.driver.uarta.dtc_support" value="config.driver.uarta.dtc_support.disabled"/>
+      <property id="config.driver.uarta.rxi_err_mode" value="config.driver.uarta.rxi_err_mode.generated"/>
     </config>
     <config id="config.driver.iica_slave">
       <property id="config.driver.iica_slave.param_checking_enable" value="config.driver.iica_slave.param_checking_enable.bsp"/>
@@ -336,6 +403,12 @@
       <property id="config.azure.tx.bsd_support" value="config.azure.tx.bsd_support.disabled"/>
       <property id="config.azure.tx.filex_pointer" value="config.azure.tx.filex_pointer.enabled"/>
     </config>
+    <config id="config.driver.adc_d">
+      <property id="config.driver.adc.param_checking_enable" value="config.driver.adc.param_checking_enable.bsp"/>
+      <property id="config.driver.adc.internal_reference_voltage" value="config.driver.adc.internal_reference_voltage.disabled"/>
+      <property id="config.driver.adc.snooze_mode_support" value="config.driver.adc.snooze_mode_support.disabled"/>
+      <property id="config.driver.adc.interrupt_support" value="config.driver.adc.interrupt_support.enabled"/>
+    </config>
   </raModuleConfiguration>
   <raPinConfiguration>
     <symbolicName propertyId="p008.symbolic_name" value="OUT1"/>
@@ -346,8 +419,9 @@
     <symbolicName propertyId="p013.symbolic_name" value="AIN2"/>
     <symbolicName propertyId="p014.symbolic_name" value="AIN3"/>
     <symbolicName propertyId="p015.symbolic_name" value="IRQ"/>
+    <symbolicName propertyId="p100.symbolic_name" value="NSLEEP2"/>
     <symbolicName propertyId="p101.symbolic_name" value="DRVOFF1"/>
-    <symbolicName propertyId="p102.symbolic_name" value="NSLEEP"/>
+    <symbolicName propertyId="p102.symbolic_name" value="NSLEEP1"/>
     <symbolicName propertyId="p103.symbolic_name" value="DRVOFF2"/>
     <symbolicName propertyId="p109.symbolic_name" value="PWM2"/>
     <symbolicName propertyId="p110.symbolic_name" value="PWM1"/>
@@ -368,16 +442,17 @@
       <configSetting altId="iica0.scla0.p914" configurationId="iica0.scla0"/>
       <configSetting altId="iica0.sdaa0.p913" configurationId="iica0.sdaa0"/>
       <configSetting altId="irq.irq1.p212" configurationId="irq.irq1"/>
+      <configSetting altId="irq.irq5.p201" configurationId="irq.irq5"/>
       <configSetting altId="irq.mode.custom.free" configurationId="irq.mode"/>
       <configSetting altId="jtag_fslash_swd.mode.swd.free" configurationId="jtag_fslash_swd.mode"/>
       <configSetting altId="jtag_fslash_swd.swclk.p300" configurationId="jtag_fslash_swd.swclk"/>
       <configSetting altId="jtag_fslash_swd.swdio.p108" configurationId="jtag_fslash_swd.swdio"/>
       <configSetting altId="p008.output.high" configurationId="p008"/>
       <configSetting altId="p008.gpio_mode.gpio_mode_out.high" configurationId="p008.gpio_mode"/>
-      <configSetting altId="p009.output.high" configurationId="p009"/>
-      <configSetting altId="p009.gpio_mode.gpio_mode_out.high" configurationId="p009.gpio_mode"/>
-      <configSetting altId="p010.output.high" configurationId="p010"/>
-      <configSetting altId="p010.gpio_mode.gpio_mode_out.high" configurationId="p010.gpio_mode"/>
+      <configSetting altId="p009.output.low" configurationId="p009"/>
+      <configSetting altId="p009.gpio_mode.gpio_mode_out.low" configurationId="p009.gpio_mode"/>
+      <configSetting altId="p010.output.low" configurationId="p010"/>
+      <configSetting altId="p010.gpio_mode.gpio_mode_out.low" configurationId="p010.gpio_mode"/>
       <configSetting altId="p011.output.high" configurationId="p011"/>
       <configSetting altId="p011.gpio_mode.gpio_mode_out.high" configurationId="p011.gpio_mode"/>
       <configSetting altId="p012.adc0.an004" configurationId="p012"/>
@@ -386,13 +461,15 @@
       <configSetting altId="p013.gpio_mode.gpio_mode_an" configurationId="p013.gpio_mode"/>
       <configSetting altId="p014.adc0.an006" configurationId="p014"/>
       <configSetting altId="p014.gpio_mode.gpio_mode_an" configurationId="p014.gpio_mode"/>
-      <configSetting altId="p100.input" configurationId="p100"/>
-      <configSetting altId="p100.gpio_mode.gpio_mode_in" configurationId="p100.gpio_mode"/>
-      <configSetting altId="p100.gpio_pupd.gpio_pupd_ip_up" configurationId="p100.gpio_pupd"/>
+      <configSetting altId="p015.input" configurationId="p015"/>
+      <configSetting altId="p015.gpio_mode.gpio_mode_in" configurationId="p015.gpio_mode"/>
+      <configSetting altId="p100.output.high" configurationId="p100"/>
+      <configSetting altId="p100.gpio_mode.gpio_mode_out.high" configurationId="p100.gpio_mode"/>
       <configSetting altId="p101.output.low" configurationId="p101"/>
       <configSetting altId="p101.gpio_mode.gpio_mode_out.low" configurationId="p101.gpio_mode"/>
       <configSetting altId="p102.output.high" configurationId="p102"/>
       <configSetting altId="p102.gpio_mode.gpio_mode_out.high" configurationId="p102.gpio_mode"/>
+      <configSetting altId="p102.gpio_otype.gpio_otype_n_ch_od" configurationId="p102.gpio_otype"/>
       <configSetting altId="p103.output.low" configurationId="p103"/>
       <configSetting altId="p103.gpio_mode.gpio_mode_out.low" configurationId="p103.gpio_mode"/>
       <configSetting altId="p108.jtag_fslash_swd.swdio" configurationId="p108"/>
@@ -401,8 +478,13 @@
       <configSetting altId="p109.gpio_mode.gpio_mode_peripheral" configurationId="p109.gpio_mode"/>
       <configSetting altId="p110.tau01.to01" configurationId="p110"/>
       <configSetting altId="p110.gpio_mode.gpio_mode_peripheral" configurationId="p110.gpio_mode"/>
-      <configSetting altId="p112.output.high" configurationId="p112"/>
-      <configSetting altId="p112.gpio_mode.gpio_mode_out.high" configurationId="p112.gpio_mode"/>
+      <configSetting altId="p112.output.low" configurationId="p112"/>
+      <configSetting altId="p112.gpio_mode.gpio_mode_out.low" configurationId="p112.gpio_mode"/>
+      <configSetting altId="p200.input" configurationId="p200"/>
+      <configSetting altId="p200.gpio_mode.gpio_mode_in" configurationId="p200.gpio_mode"/>
+      <configSetting altId="p201.irq.irq5" configurationId="p201"/>
+      <configSetting altId="p201.gpio_irq.gpio_irq_enabled" configurationId="p201.gpio_irq"/>
+      <configSetting altId="p201.gpio_mode.gpio_mode_irq" configurationId="p201.gpio_mode"/>
       <configSetting altId="p206.system.res" configurationId="p206"/>
       <configSetting altId="p206.gpio_mode.gpio_mode_peripheral" configurationId="p206.gpio_mode"/>
       <configSetting altId="p207.uarta.rxda" configurationId="p207"/>
@@ -412,16 +494,11 @@
       <configSetting altId="p212.irq.irq1" configurationId="p212"/>
       <configSetting altId="p212.gpio_irq.gpio_irq_enabled" configurationId="p212.gpio_irq"/>
       <configSetting altId="p212.gpio_mode.gpio_mode_irq" configurationId="p212.gpio_mode"/>
-      <configSetting altId="p213.output.high" configurationId="p213"/>
-      <configSetting altId="p213.gpio_mode.gpio_mode_out.high" configurationId="p213.gpio_mode"/>
-      <configSetting altId="p214.input" configurationId="p214"/>
-      <configSetting altId="p214.gpio_mode.gpio_mode_in" configurationId="p214.gpio_mode"/>
-      <configSetting altId="p215.input" configurationId="p215"/>
-      <configSetting altId="p215.gpio_mode.gpio_mode_in" configurationId="p215.gpio_mode"/>
+      <configSetting altId="p213.output.low" configurationId="p213"/>
+      <configSetting altId="p213.gpio_mode.gpio_mode_out.low" configurationId="p213.gpio_mode"/>
       <configSetting altId="p300.jtag_fslash_swd.swclk" configurationId="p300"/>
       <configSetting altId="p300.gpio_mode.gpio_mode_peripheral" configurationId="p300.gpio_mode"/>
       <configSetting altId="p407.input" configurationId="p407"/>
-      <configSetting altId="p407.gpio_irq.gpio_irq_enabled" configurationId="p407.gpio_irq"/>
       <configSetting altId="p407.gpio_mode.gpio_mode_in" configurationId="p407.gpio_mode"/>
       <configSetting altId="p407.gpio_pupd.gpio_pupd_ip_up" configurationId="p407.gpio_pupd"/>
       <configSetting altId="p913.iica0.sdaa0" configurationId="p913"/>
