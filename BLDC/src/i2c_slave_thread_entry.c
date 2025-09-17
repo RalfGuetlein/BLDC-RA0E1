@@ -89,6 +89,18 @@ void i2c_slave_callback (i2c_slave_callback_args_t * p_args)
 void i2c_slave_thread_entry(void)
 {
     uint8_t adr_pin;
+
+    tx_thread_sleep(100);
+
+    R_BSP_SoftwareDelay(25, BSP_DELAY_UNITS_MICROSECONDS);
+    g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP1,  BSP_IO_LEVEL_LOW);
+    g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP2,  BSP_IO_LEVEL_LOW);
+    R_BSP_SoftwareDelay(150, BSP_DELAY_UNITS_MICROSECONDS);
+    g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP1,  BSP_IO_LEVEL_HIGH);
+    g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP2,  BSP_IO_LEVEL_HIGH);
+
+
+
     g_ioport.p_api->pinRead(g_ioport.p_ctrl, MODBUS_DIR, &adr_pin);
 
     i2c_slave_cfg_t slave_cfg;

@@ -54,6 +54,8 @@ void sys_thread_entry(void)
     (void) R_TAU_PWM_InfoGet(&g_timer0_ctrl, &info);
     uint32_t period_counts = info.period_counts;
 
+    uint8_t out1_nsleep_on = 0;
+
     while (1)
     {
         tx_thread_sleep (10);
@@ -62,24 +64,30 @@ void sys_thread_entry(void)
         R_TAU_PWM_DutyCycleSet(&g_timer0_ctrl, (uint16_t) ((period_counts * gp_host->speed2) / 100), TAU_PWM_IO_PIN_CHANNEL_2);
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, OUT1,    gp_host->flags1.bit.Out);
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, OUT2,    gp_host->flags2.bit.Out);
+        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, DRVOFF1, gp_host->flags1.bit.Off);
+        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, DRVOFF2, gp_host->flags2.bit.Off);
+
+        if(gp_host->flags1.bit.Off == 1 && out1_nsleep_on == 0) {
+            out1_nsleep_on = 1;
+            g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP1,  BSP_IO_LEVEL_LOW);
+            g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP2,  BSP_IO_LEVEL_LOW);
+            R_BSP_SoftwareDelay(150, BSP_DELAY_UNITS_MICROSECONDS);
+            g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP1,  BSP_IO_LEVEL_HIGH);
+            g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP2,  BSP_IO_LEVEL_HIGH);
+        }
+
+        if(gp_host->flags1.bit.Off == 0 && out1_nsleep_on == 1) {
+            out1_nsleep_on = 0;
+        }
 
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, BRAKE1,  gp_host->flags1.bit.Brk);
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, BRAKE2,  gp_host->flags2.bit.Brk);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, DRVOFF1, gp_host->flags1.bit.Off);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, DRVOFF2, gp_host->flags2.bit.Off);
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, SS_DIR1, gp_host->flags1.bit.Dir);
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, SS_DIR2, gp_host->flags2.bit.Dir);
 
 
        // short low pulse on NSLEEPx to reset fault conditions
         // might be necessary to safely change SS_DIRx level
-
-        R_BSP_SoftwareDelay(25, BSP_DELAY_UNITS_MICROSECONDS);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP1,  BSP_IO_LEVEL_LOW);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP2,  BSP_IO_LEVEL_LOW);
-        R_BSP_SoftwareDelay(25, BSP_DELAY_UNITS_MICROSECONDS);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP1,  BSP_IO_LEVEL_HIGH);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP2,  BSP_IO_LEVEL_HIGH);
 
 
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, SS_DIR1, gp_host->flags1.bit.Dir);
