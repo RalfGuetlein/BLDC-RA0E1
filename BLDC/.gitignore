@@ -3,3 +3,7 @@
 /ra_cfg/
 /Debug/
 /.settings/
+/.secure_azone
+/BLDC_masteronly.elf.jlink
+/BLDC_masteronly.elf.launch
+/JLinkLog.log
