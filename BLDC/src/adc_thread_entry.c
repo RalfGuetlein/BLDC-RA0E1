@@ -54,6 +54,8 @@ void adc_thread_entry(void)
         gp_slave->flags.bit.Din = din;
         g_ioport.p_api->pinRead(g_ioport.p_ctrl, NFAULT, &din);
         gp_slave->flags.bit.Flt = din;
+// Protocol Version
+        gp_slave->flags.bit.Ver = 1;
 
         tx_thread_sleep(3);
 

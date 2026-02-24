@@ -72,6 +72,8 @@ void sys_thread_entry(void)
         g_ioport.p_api->pinRead(g_ioport.p_ctrl, SS_DIR1, &dir1);
         g_ioport.p_api->pinRead(g_ioport.p_ctrl, SS_DIR2, &dir2);
 
+        // short low pulse on NSLEEPx to reset fault conditions
+        // necessary to safely change SS_DIRx level
         if(   (dir1 != gp_host->flags1.bit.Dir) ||
               (dir2 != gp_host->flags2.bit.Dir)
           )
@@ -85,19 +87,6 @@ void sys_thread_entry(void)
 
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, BRAKE1,  gp_host->flags1.bit.Brk);
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, BRAKE2,  gp_host->flags2.bit.Brk);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, SS_DIR1, gp_host->flags1.bit.Dir);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, SS_DIR2, gp_host->flags2.bit.Dir);
-
-
-       // short low pulse on NSLEEPx to reset fault conditions
-        // might be necessary to safely change SS_DIRx level
-        R_BSP_SoftwareDelay(25, BSP_DELAY_UNITS_MICROSECONDS);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP1,  BSP_IO_LEVEL_LOW);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP2,  BSP_IO_LEVEL_LOW);
-        R_BSP_SoftwareDelay(150, BSP_DELAY_UNITS_MICROSECONDS);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP1,  BSP_IO_LEVEL_HIGH);
-        g_ioport.p_api->pinWrite(g_ioport.p_ctrl, NSLEEP2,  BSP_IO_LEVEL_HIGH);
-
 
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, SS_DIR1, gp_host->flags1.bit.Dir);
         g_ioport.p_api->pinWrite(g_ioport.p_ctrl, SS_DIR2, gp_host->flags2.bit.Dir);

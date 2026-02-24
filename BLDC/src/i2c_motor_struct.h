@@ -6,8 +6,10 @@
 typedef union {
     uint8_t byte;
     struct {
-        uint8_t Din: 1;
-        uint8_t Flt: 1;
+        uint8_t Ver: 4;         //Control SW Version
+        uint8_t Reserved: 2;
+        uint8_t Din: 1;         //
+        uint8_t Flt: 1;         // nFault pin level
     } bit;
 } slave_flags_t;
 
